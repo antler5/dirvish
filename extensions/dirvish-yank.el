@@ -71,7 +71,7 @@ By default only keep the log buffer alive for failed tasks."
       "Yank commands menu."
       [:description
        (lambda () (dirvish--format-menu-heading
-              "Select yank operation on marked files:"))
+		   "Select yank operation on marked files:"))
        ,@pairs]
       (interactive)
       (if (derived-mode-p 'dired-mode)
@@ -111,7 +111,7 @@ CMD, DOC is the documentation string."
 
 (defun dirvish-yank--get-srcs (&optional range)
   "Get all marked filenames in RANGE.
-RANGE can be `buffer', `session', `all'."
+RANGE can be `buffer', `session', `all-marked'."
   (setq range (or range 'buffer))
   (cl-remove-duplicates
    (cl-loop
@@ -213,7 +213,7 @@ is t."
   (let* ((process-connection-type nil) (name "*dirvish-yank*")
          (buf (get-buffer-create (format "*yank@%s*" (current-time-string))))
          (fn (lambda () (setq dirvish-yank-log-buffers
-                         (delete buf dirvish-yank-log-buffers))))
+                              (delete buf dirvish-yank-log-buffers))))
          (proc (if (listp cmd)
                    (make-process :name name :buffer buf :command cmd)
                  (start-process-shell-command name buf cmd))))
